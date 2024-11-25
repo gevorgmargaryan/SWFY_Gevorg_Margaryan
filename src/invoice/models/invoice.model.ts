@@ -28,20 +28,20 @@ export class InvoiceLineItemsModel {
 
 @ObjectType()
 export class InvoiceModel extends BaseModel {
-  @Field(() => Int)
-  id: number;
-
   @Field(() => String)
-  name: string;
+  id?: string;
 
-  @Field(() => String)
-  status: string;
+  @Field(() => String, { nullable: true })
+  name?: string;
 
-  @Field(() => String, { name: 'quote_number' })
-  quoteNumber: string;
+  @Field(() => String, { nullable: true })
+  status?: string;
 
-  @Field(() => [InvoiceLineItemsModel], { name: 'line_items' })
-  lineItems: InvoiceLineItemsModel[];
+  @Field(() => String, { name: 'quote_number', nullable: true })
+  quoteNumber?: string;
+
+  @Field(() => [InvoiceLineItemsModel], { name: 'line_items', nullable: true })
+  lineItems?: InvoiceLineItemsModel[];
 
   @Field({ nullable: true, name: 'issued_at' })
   issuedAt?: Date;

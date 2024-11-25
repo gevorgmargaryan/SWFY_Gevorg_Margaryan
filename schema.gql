@@ -14,11 +14,11 @@ type InvoiceModel {
   created_at: DateTime
   updated_at: DateTime
   deleted_at: DateTime
-  id: Int!
-  name: String!
-  status: String!
-  quote_number: String!
-  line_items: [InvoiceLineItemsModel!]!
+  id: String!
+  name: String
+  status: String
+  quote_number: String
+  line_items: [InvoiceLineItemsModel!]
   issued_at: DateTime
   customer_data: JSON
 }
@@ -94,7 +94,7 @@ interface IFailure {
 }
 
 input GetByIdArgs {
-  id: Int!
+  id: String!
 }
 
 type Mutation {

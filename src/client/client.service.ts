@@ -4,6 +4,7 @@ import { UpdateClientInput } from './dto/update-client.input';
 import { plainToInstance } from 'class-transformer';
 import { Repository } from 'typeorm';
 import { ClientEntity } from 'src/database/postgres/entities';
+import { ClientModel } from './models/client.model';
 
 @Injectable()
 export class ClientService {
@@ -14,7 +15,7 @@ export class ClientService {
 
   create(createClientInput: CreateClientInput) {
     return this.clientRepository.save(
-      plainToInstance(ClientEntity, createClientInput),
+      plainToInstance(ClientModel, createClientInput),
     );
   }
 

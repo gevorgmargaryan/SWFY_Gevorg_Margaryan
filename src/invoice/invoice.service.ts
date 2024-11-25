@@ -1,11 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateInvoiceArgs } from './dto/create.invoice.args';
 import { InvoiceModel } from './models/invoice.model';
 import { plainToInstance } from 'class-transformer';
+import { Repository } from 'typeorm';
+import { InvoiceEntity } from 'src/database/postgres/entities';
 
 @Injectable()
 export class InvoiceService {
-  public async findById({ id }: { id: number }) {
+  constructor(
+    @Inject('INVOICE_REPOSITORY')
+    private invoiceRepository: Repository<InvoiceEntity>,
+  ) {}
+
+  public async findById({ id }: { id: string }) {
     const invoice: InvoiceModel = {
       id: id,
       name: 'Invoice',
@@ -23,7 +30,7 @@ export class InvoiceService {
 
   public async create(args: CreateInvoiceArgs) {
     const invoice: InvoiceModel = {
-      id: 1,
+      ...args,
       name: 'Invoice',
       status: 'Draft',
       quoteNumber: '1',
@@ -32,6 +39,6 @@ export class InvoiceService {
       customerData: args.customerData,
     };
 
-    return plainToInstance(InvoiceModel, invoice);
+    return this.invoiceRepository.save(invoice);
   }
 }

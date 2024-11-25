@@ -4,9 +4,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { InvoiceEntity } from './invoice.entity';
 
 @Entity('clients')
 export class ClientEntity {
@@ -32,4 +34,7 @@ export class ClientEntity {
   insertUpdated() {
     this.updatedAt = new Date();
   }
+
+  @OneToMany(type => InvoiceEntity, invoice => invoice)
+  invoices: InvoiceEntity[];
 }

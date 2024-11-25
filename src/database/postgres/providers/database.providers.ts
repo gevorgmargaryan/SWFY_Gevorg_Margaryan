@@ -2,6 +2,7 @@ import { DataSource } from 'typeorm';
 import {
   InvoiceTable1731422100036,
   ClientTable1732555264294,
+  InvoiceTableUpdates1732555271249,
 } from '../migrations';
 import { ClientEntity, InvoiceEntity } from '../entities';
 
@@ -13,7 +14,11 @@ export const dataSource = new DataSource({
   password: 'root',
   database: 'swfy',
   entities: [InvoiceEntity, ClientEntity],
-  migrations: [InvoiceTable1731422100036, ClientTable1732555264294],
+  migrations: [
+    InvoiceTable1731422100036,
+    ClientTable1732555264294,
+    InvoiceTableUpdates1732555271249,
+  ],
   synchronize: false,
 });
 
