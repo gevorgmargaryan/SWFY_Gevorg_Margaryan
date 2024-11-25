@@ -39,8 +39,20 @@ type Alert {
   message: String!
 }
 
+type ClientModel {
+  created_at: DateTime
+  updated_at: DateTime
+  deleted_at: DateTime
+  id: String!
+
+  """Name of the client"""
+  name: String!
+}
+
 type Query {
   getQuote(args: GetByIdArgs!): GetInvoiceById!
+  clients: [ClientModel!]!
+  client(id: String!): ClientModel!
 }
 
 union GetInvoiceById = GetInvoiceSuccess | GetInvoiceFailure
@@ -87,6 +99,9 @@ input GetByIdArgs {
 
 type Mutation {
   createInvoice(args: CreateInvoiceArgs!): CreateInvoice!
+  createClient(createClientInput: CreateClientInput!): ClientModel!
+  updateClient(updateClientInput: UpdateClientInput!): ClientModel!
+  removeClient(id: String!): ClientModel!
 }
 
 union CreateInvoice = CreateInvoiceSuccess | CreateInvoiceFailure
@@ -118,4 +133,18 @@ input LineItemsArgs {
   price: Float!
   units: Float!
   vat: Float!
+}
+
+input CreateClientInput {
+  id: String
+
+  """Name of the client"""
+  name: String!
+}
+
+input UpdateClientInput {
+  id: String!
+
+  """Name of the client"""
+  name: String!
 }
